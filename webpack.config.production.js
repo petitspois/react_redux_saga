@@ -1,18 +1,20 @@
 const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer')
+const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var node_modules = path.resolve(__dirname, 'node_modules');
 var extractCSS = new ExtractTextPlugin('styles.css');
 var extractSASS = new ExtractTextPlugin('coverage.css');
 
 module.exports = {
+    devtool: false,
     entry: {
         vendor: [
             'react',
             'redux',
             'react-dom',
             'redux-saga',
+            'react-redux',
             'react-router',
         ],
         shared: './main',
@@ -29,17 +31,18 @@ module.exports = {
             NODE_ENV: JSON.stringify('production')
           }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-          compressor: {
-            warnings: false
-          }
-        }),
-        extractCSS,
-        extractSASS,
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
+            minChunks: Infinity,
             filename: 'vendor.js'
-        })
+        }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug: false
+        }),
+        new webpack.optimize.UglifyJsPlugin(),
+        extractCSS,
+        extractSASS,
     ],
     module: {
         rules: [{

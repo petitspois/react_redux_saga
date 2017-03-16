@@ -1,10 +1,11 @@
 var path = require('path');
 var webpack = require('webpack');
 module.exports = {
-    devtool: "cheap-eval-source-map",
+    devtool: 'cheap-module-eval-source-map',
     devServer: {
         host: "0.0.0.0",
-        port: 7000
+        port: 7000,
+        historyApiFallback:true
     },
     entry:{
         app:[

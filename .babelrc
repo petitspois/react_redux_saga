@@ -12,6 +12,7 @@
     // Transpile React components to JavaScript
   ],
   "plugins": [
-    "react-hot-loader/babel"
+    "react-hot-loader/babel",
+    ["import", { "libraryName": "antd" }]
   ]
 }
